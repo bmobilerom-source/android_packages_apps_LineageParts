@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Volume card with adaptive preference background, full rounded corners and spacing.
+  Based on dot_preference_*_card_progress from reference repo, but using
+  @drawable/adaptive_preference_card_background so it matches light/dark cards.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/adaptive_preference_card_background"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingStart="12dp"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
+
+            <LinearLayout
+                android:id="@*android:id/icon_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minWidth="68dp"
+                android:orientation="horizontal"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
+
+                <com.android.internal.widget.PreferenceImageView
+                    android:id="@*android:id/icon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:adjustViewBounds="true"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@*android:id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:fadingEdge="horizontal"
+                        android:paddingStart="12dp"
+                        android:singleLine="true"
+                        android:textAppearance="@*android:style/TextAppearance.DeviceDefault.Subhead"
+                        android:textColor="?android:attr/textColorPrimary" />
+
+                    <LinearLayout
+                        android:id="@*android:id/widget_frame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="end|center_vertical"
+                        android:orientation="vertical"
+                        android:paddingStart="12dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <SeekBar
+                        android:id="@*android:id/seekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="12dp"
+                        android:paddingTop="9dp"
+                        android:paddingBottom="9dp"
+                        android:progressDrawable="@drawable/dot_perf_progress"
+                        android:thumb="@null"
+                        android:minHeight="54dp" />
+
+                    <TextView
+                        android:id="@+id/suppression_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:ellipsize="end"
+                        android:paddingStart="12dp"
+                        android:singleLine="true"
+                        android:textAlignment="viewStart"
+                        android:textAppearance="@*android:style/TextAppearance.DeviceDefault.Body1"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </FrameLayout>
+</FrameLayout>
+
+

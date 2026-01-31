@@ -33,11 +33,18 @@ android_app {
         "SettingsLibPreference",
         "SystemUISharedLib",
         "LineagePreferenceLib",
+        "glide_lineageparts",
+        "lottie",
     ],
 
     required: [
         "privapp_whitelist_org.lineageos.lineageparts"
     ],
+}
+
+android_library_import {
+    name: "glide_lineageparts",
+    aars: ["glide-4.16.0.aar"],
 }
 
 prebuilt_etc {

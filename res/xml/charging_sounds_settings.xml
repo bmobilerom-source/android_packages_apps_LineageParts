@@ -7,8 +7,15 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:lineage="http://schemas.android.com/apk/res-auto"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="charging_sounds_settings"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:title="@string/charging_sounds_settings_title">
+
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="charging_sounds"
+        android:order="-1001"
+        app:lottie_rawRes="@raw/sound"/>
 
     <com.android.settingslib.widget.TopIntroPreference
         android:key="charging_sounds_top_intro"

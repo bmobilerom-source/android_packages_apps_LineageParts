@@ -3,9 +3,16 @@
      SPDX-FileCopyrightText: 2023 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
     android:key="charging_control"
     android:title="@string/charging_control_title">
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="batterysaver"
+        android:order="-1001"
+        app:lottie_rawRes="@raw/batterysaver"/> 
 
     <lineageos.preference.LineageSystemSettingMainSwitchPreference
         android:key="charging_control_enabled"

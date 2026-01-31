@@ -8,6 +8,7 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:lineage="http://schemas.android.com/apk/res-auto"
+        xmlns:settings="http://schemas.android.com/apk/res-auto"
         android:key="rotation"
         android:title="@string/display_rotation_title">
 
@@ -29,19 +30,23 @@
 
         <CheckBoxPreference
             android:key="display_rotation_0"
-            android:title="@string/display_rotation_0_title" />
+            android:title="@string/display_rotation_0_title"
+            settings:layout="@layout/adaptive_preference_card" />
 
         <CheckBoxPreference
             android:key="display_rotation_90"
-            android:title="@string/display_rotation_90_title" />
+            android:title="@string/display_rotation_90_title"
+            settings:layout="@layout/adaptive_preference_card" />
 
         <CheckBoxPreference
-            android:key="display_rotation_180"
-            android:title="@string/display_rotation_180_title" />
+            android:key="display_rotation_180"  
+            android:title="@string/display_rotation_180_title"
+            settings:layout="@layout/adaptive_preference_card" />
 
         <CheckBoxPreference
             android:key="display_rotation_270"
-            android:title="@string/display_rotation_270_title" />
+            android:title="@string/display_rotation_270_title"
+            settings:layout="@layout/adaptive_preference_card" />
 
     </PreferenceCategory>
 
