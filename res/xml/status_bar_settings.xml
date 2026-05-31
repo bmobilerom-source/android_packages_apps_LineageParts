@@ -26,6 +26,13 @@
         android:defaultValue="0" />
 
     <Preference
+        android:fragment="org.lineageos.lineageparts.statusbar.DynamicIslandSettings"
+        android:key="dynamic_island_settings"
+        android:title="@string/dynamic_island_settings_title"
+        android:summary="@string/dynamic_island_settings_summary"
+        settings:layout="@layout/adaptive_preference_card" />
+
+    <Preference
         android:fragment="org.lineageos.lineageparts.statusbar.NetworkTrafficSettings"
         android:key="network_traffic_settings"
         android:title="@string/network_traffic_settings_title"

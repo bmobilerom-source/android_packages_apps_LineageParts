@@ -480,4 +480,30 @@
         <item>1</item>
         <item>0</item>
     </string-array>
+
+    <string-array name="dynamic_island_theme_entries" translatable="false">
+        <item>System</item>
+        <item>Light</item>
+        <item>Dark</item>
+        <item>AMOLED</item>
+    </string-array>
+
+    <string-array name="dynamic_island_theme_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="dynamic_island_gravity_entries" translatable="false">
+        <item>@string/dynamic_island_gravity_center</item>
+        <item>@string/dynamic_island_gravity_left</item>
+        <item>@string/dynamic_island_gravity_right</item>
+    </string-array>
+
+    <string-array name="dynamic_island_gravity_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
