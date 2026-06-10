@@ -311,11 +311,22 @@
             android:summary="@string/volume_answer_call_summary"
             android:defaultValue="false" />
 
-        <lineageos.preference.LineageSystemSettingSwitchPreference
+        <org.lineageos.lineageparts.preference.MusicTapVolumeControlsPreference
             android:key="volbtn_music_controls"
             android:title="@string/volbtn_music_controls_title"
             android:summary="@string/volbtn_music_controls_summary"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="musictap_settings"
+            android:title="@string/musictap_settings_title"
+            android:summary="@string/musictap_settings_summary"
+            settings:iconSpaceReserved="false">
+            <intent
+                android:action="org.lineageos.musictap.action.SETTINGS"
+                android:targetPackage="org.lineageos.musictap"
+                android:targetClass="org.lineageos.musictap.MainActivity" />
+        </Preference>
 
         <ListPreference
             android:key="volume_key_cursor_control"

@@ -432,16 +432,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
             }
         }
 
-        SwitchPreferenceCompat volumeWakeScreen = findPreference(KEY_VOLUME_WAKE_SCREEN);
-        SwitchPreferenceCompat volumeMusicControls = findPreference(KEY_VOLUME_MUSIC_CONTROLS);
-
-        if (volumeWakeScreen != null) {
-            if (volumeMusicControls != null) {
-                volumeMusicControls.setDependency(KEY_VOLUME_WAKE_SCREEN);
-                volumeWakeScreen.setDisableDependentsState(true);
-            }
-        }
-
         mSwapCapacitiveKeys = findPreference(KEY_SWAP_CAPACITIVE_KEYS);
         if (mSwapCapacitiveKeys != null && !isKeySwapperSupported(getActivity())) {
             prefScreen.removePreference(mSwapCapacitiveKeys);
