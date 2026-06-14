@@ -7,10 +7,16 @@
 
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:lineage="http://schemas.android.com/apk/res-auto"
         xmlns:settings="http://schemas.android.com/apk/res-auto"
         android:key="rotation"
         android:title="@string/display_rotation_title">
+
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="device_rotation_illustration"
+        android:order="-1000"
+        app:lottie_rawRes="@raw/devicerotation" />
 
     <com.android.settingslib.widget.MainSwitchPreference
         android:key="accelerometer"
