@@ -29,6 +29,8 @@ public class DynamicIslandSeekBarPreference extends Preference
     private int mDefaultValue;
     private int mStep = 1;
     private ValueFormatter mFormatter = ValueFormatter.INTEGER;
+    private int mValueStringRes = R.string.dynamic_island_seekbar_value;
+    private int mTimeoutValueStringRes = R.string.dynamic_island_auto_hide_value;
 
     public DynamicIslandSeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,10 +38,26 @@ public class DynamicIslandSeekBarPreference extends Preference
     }
 
     public void configure(int min, int max, int defaultValue, ValueFormatter formatter) {
+        configure(min, max, defaultValue, formatter, 0);
+    }
+
+    public void configure(
+            int min,
+            int max,
+            int defaultValue,
+            ValueFormatter formatter,
+            int valueStringRes) {
         mMin = min;
         mMax = max;
         mDefaultValue = defaultValue;
         mFormatter = formatter;
+        if (valueStringRes != 0) {
+            if (formatter == ValueFormatter.TIMEOUT_SECONDS) {
+                mTimeoutValueStringRes = valueStringRes;
+            } else {
+                mValueStringRes = valueStringRes;
+            }
+        }
         if (formatter == ValueFormatter.TIMEOUT_SECONDS) {
             mStep = 500;
         }
@@ -51,9 +69,13 @@ public class DynamicIslandSeekBarPreference extends Preference
 
         mValueView = (TextView) holder.findViewById(R.id.value);
         mSeekBar = (SeekBar) holder.findViewById(R.id.seekbar_widget);
+        if (mSeekBar == null) {
+            return;
+        }
         mSeekBar.setOnSeekBarChangeListener(this);
 
-        final int span = (mMax - mMin) / mStep;
+        final int step = Math.max(mStep, 1);
+        final int span = Math.max((mMax - mMin) / step, 0);
         mSeekBar.setMax(span);
         final int current = getSetting();
         mSeekBar.setProgress(valueToProgress(current));
@@ -93,11 +115,13 @@ public class DynamicIslandSeekBarPreference extends Preference
     }
 
     private int valueToProgress(int value) {
-        return (value - mMin) / mStep;
+        final int step = Math.max(mStep, 1);
+        return (value - mMin) / step;
     }
 
     private int progressToValue(int progress) {
-        return mMin + progress * mStep;
+        final int step = Math.max(mStep, 1);
+        return mMin + progress * step;
     }
 
     private void updateValue(int value) {
@@ -108,14 +132,14 @@ public class DynamicIslandSeekBarPreference extends Preference
             case TIMEOUT_SECONDS:
                 mValueView.setText(
                         getContext().getString(
-                                R.string.dynamic_island_auto_hide_value,
+                                mTimeoutValueStringRes,
                                 value / 1000f));
                 break;
             case INTEGER:
             default:
                 mValueView.setText(
                         getContext().getString(
-                                R.string.dynamic_island_seekbar_value,
+                                mValueStringRes,
                                 value));
                 break;
         }

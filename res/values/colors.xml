@@ -12,4 +12,7 @@
 
     <!-- Contributors cloud colors -->
     <color name="contributors_cloud_selected_color">@android:color/system_accent1_600</color>
+
+    <color name="dynamic_island_system_warning_bg">#FFF4511E</color>
+    <color name="system_warning_bg">@color/dynamic_island_system_warning_bg</color>
 </resources>

@@ -457,7 +457,9 @@
     <string name="dynamic_island_settings_summary">Notification, media, and charging popups in the cutout area</string>
     <string name="dynamic_island_general_category">General</string>
     <string name="dynamic_island_enable_title">Enable Dynamic Island</string>
-    <string name="dynamic_island_enable_summary">Show live activities in the status bar cutout region</string>
+    <string name="dynamic_island_enable_summary">Show live activities in the status bar cutout. Turns off Bubble Notice when enabled.</string>
+    <string name="dynamic_island_hide_on_keyguard_title">Hide on lock screen</string>
+    <string name="dynamic_island_hide_on_keyguard_summary">Do not show Dynamic Island while the lock screen is visible</string>
     <string name="dynamic_island_auto_cutout_title">Auto-enable on notched devices</string>
     <string name="dynamic_island_auto_cutout_summary">Automatically enable when a centered display cutout is detected</string>
     <string name="dynamic_island_plugins_category">Plugins</string>

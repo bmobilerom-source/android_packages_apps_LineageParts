@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2025 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="dynamic_island_more_settings_title">More settings</string>
+    <string name="dynamic_island_more_settings_summary">Layout, filters, and advanced behavior</string>
+
+    <string name="dynamic_island_more_system_warning_title">System notice</string>
+    <string name="dynamic_island_more_system_warning_summary">Advanced Dynamic Island options can change status bar layout and notification behavior. Changes apply immediately.</string>
+
+    <string name="dynamic_island_more_general_category">General</string>
+    <string name="dynamic_island_more_monet_tint_title">Wallpaper tint</string>
+    <string name="dynamic_island_more_monet_tint_summary">Match pill colors to the wallpaper when Theme is set to System</string>
+    <string name="dynamic_island_more_hide_on_keyguard_title">Hide on lock screen</string>
+    <string name="dynamic_island_more_hide_on_keyguard_summary">Do not show Dynamic Island while the lock screen is visible</string>
+
+    <string name="dynamic_island_more_plugins_category">Plugins</string>
+    <string name="dynamic_island_more_plugin_call_title">Phone calls</string>
+    <string name="dynamic_island_more_plugin_call_summary">Show a live call timer while a call is active</string>
+    <string name="dynamic_island_more_plugin_media_title">Media playback</string>
+
+    <string name="dynamic_island_more_appearance_category">Appearance</string>
+    <string name="dynamic_island_more_theme_title">Theme</string>
+
+    <string name="dynamic_island_more_apps_category">Notification filter</string>
+    <string name="dynamic_island_more_enabled_apps_title">Allowed apps</string>
+    <string name="dynamic_island_more_enabled_apps_all">All apps (no filter)</string>
+    <string name="dynamic_island_more_enabled_apps_count">%1$d apps selected</string>
+    <string name="dynamic_island_more_add_app_title">Add app</string>
+    <string name="dynamic_island_more_add_app_summary">Only selected apps trigger the island when a filter is set</string>
+
+    <string name="dynamic_island_more_behavior_category">Behavior</string>
+    <string name="dynamic_island_more_badge_opens_shade_title">+N opens notification shade</string>
+    <string name="dynamic_island_more_badge_opens_shade_summary">Tap the badge when multiple notifications are active to open the notification panel</string>
+    <string name="dynamic_island_more_priority_styling_title">Priority styling</string>
+    <string name="dynamic_island_more_priority_styling_summary">Dim silent notifications and highlight high-priority alerts on the island</string>
+
+    <string name="dynamic_island_more_layout_category">Layout</string>
+    <string name="dynamic_island_more_position_x_title">Horizontal offset</string>
+    <string name="dynamic_island_more_position_x_summary">Fine-tune left/right position in dp</string>
+    <string name="dynamic_island_more_position_y_title">Vertical offset</string>
+    <string name="dynamic_island_more_position_y_summary">Fine-tune up/down position in dp</string>
+    <string name="dynamic_island_more_width_title">Compact width</string>
+    <string name="dynamic_island_more_width_summary">Width of the opened pill in dp</string>
+    <string name="dynamic_island_more_height_title">Expanded height</string>
+    <string name="dynamic_island_more_height_summary">Height when expanded in dp</string>
+    <string name="dynamic_island_more_auto_hide_title">Auto-hide timeout</string>
+    <string name="dynamic_island_more_auto_hide_summary">How long opened content stays visible</string>
+    <string name="dynamic_island_more_seekbar_value">%1$d dp</string>
+    <string name="dynamic_island_more_auto_hide_value">%1$.1f s</string>
+</resources>

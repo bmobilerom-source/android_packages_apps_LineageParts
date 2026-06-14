@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+     SPDX-FileCopyrightText: 2025 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lineage="http://schemas.android.com/apk/res-auto"
+    xmlns:settings="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="dynamic_island_more_settings"
+    android:title="@string/dynamic_island_more_settings_title">
+
+    <com.android.settingslib.widget.IllustrationPreference
+        android:key="dynamic_island_more_illustration"
+        android:order="-1001"
+        app:lottie_rawRes="@raw/status" />
+
+    <Preference
+        android:key="dynamic_island_more_system_warning"
+        android:order="-1000"
+        android:title="@string/dynamic_island_more_system_warning_title"
+        android:summary="@string/dynamic_island_more_system_warning_summary"
+        android:selectable="false"
+        settings:layout="@layout/system_warning_preference_card" />
+
+    <PreferenceCategory android:title="@string/dynamic_island_more_general_category">
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_hide_on_keyguard"
+            android:title="@string/dynamic_island_more_hide_on_keyguard_title"
+            android:summary="@string/dynamic_island_more_hide_on_keyguard_summary"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/dynamic_island_more_plugins_category">
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_plugin_call"
+            android:title="@string/dynamic_island_more_plugin_call_title"
+            android:summary="@string/dynamic_island_more_plugin_call_summary"
+            android:defaultValue="true" />
+
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_plugin_media"
+            android:title="@string/dynamic_island_more_plugin_media_title"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/dynamic_island_more_appearance_category">
+        <lineageos.preference.LineageSystemSettingListPreference
+            android:key="status_bar_dynamic_island_theme"
+            android:title="@string/dynamic_island_more_theme_title"
+            android:entries="@array/dynamic_island_theme_entries"
+            android:entryValues="@array/dynamic_island_theme_values"
+            android:defaultValue="0"
+            settings:layout="@layout/adaptive_preference_card" />
+
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_monet_tint"
+            android:title="@string/dynamic_island_more_monet_tint_title"
+            android:summary="@string/dynamic_island_more_monet_tint_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="dynamic_island_more_apps_category"
+        android:title="@string/dynamic_island_more_apps_category">
+        <Preference
+            android:key="dynamic_island_more_enabled_apps"
+            android:title="@string/dynamic_island_more_enabled_apps_title"
+            android:summary="@string/dynamic_island_more_enabled_apps_all"
+            settings:layout="@layout/adaptive_preference_card" />
+
+        <Preference
+            android:key="dynamic_island_more_add_app"
+            android:title="@string/dynamic_island_more_add_app_title"
+            android:summary="@string/dynamic_island_more_add_app_summary"
+            settings:layout="@layout/adaptive_preference_card" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/dynamic_island_more_behavior_category">
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_badge_opens_shade"
+            android:title="@string/dynamic_island_more_badge_opens_shade_title"
+            android:summary="@string/dynamic_island_more_badge_opens_shade_summary"
+            android:defaultValue="false" />
+
+        <lineageos.preference.LineageSystemSettingSwitchPreference
+            android:key="status_bar_dynamic_island_priority_styling"
+            android:title="@string/dynamic_island_more_priority_styling_title"
+            android:summary="@string/dynamic_island_more_priority_styling_summary"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/dynamic_island_more_layout_category">
+        <!-- Hidden: horizontal offset, compact width, expanded height -->
+        <!--
+        <org.lineageos.lineageparts.statusbar.DynamicIslandSeekBarPreference
+            android:key="status_bar_dynamic_island_position_x"
+            android:title="@string/dynamic_island_more_position_x_title"
+            android:summary="@string/dynamic_island_more_position_x_summary" />
+
+        <org.lineageos.lineageparts.statusbar.DynamicIslandSeekBarPreference
+            android:key="status_bar_dynamic_island_width"
+            android:title="@string/dynamic_island_more_width_title"
+            android:summary="@string/dynamic_island_more_width_summary" />
+
+        <org.lineageos.lineageparts.statusbar.DynamicIslandSeekBarPreference
+            android:key="status_bar_dynamic_island_height"
+            android:title="@string/dynamic_island_more_height_title"
+            android:summary="@string/dynamic_island_more_height_summary" />
+        -->
+
+        <org.lineageos.lineageparts.statusbar.DynamicIslandSeekBarPreference
+            android:key="status_bar_dynamic_island_position_y"
+            android:title="@string/dynamic_island_more_position_y_title"
+            android:summary="@string/dynamic_island_more_position_y_summary"
+            settings:layout="@layout/adaptive_dynamic_island_seekbar_card_top" />
+
+        <org.lineageos.lineageparts.statusbar.DynamicIslandSeekBarPreference
+            android:key="status_bar_dynamic_island_auto_hide_ms"
+            android:title="@string/dynamic_island_more_auto_hide_title"
+            android:summary="@string/dynamic_island_more_auto_hide_summary"
+            settings:layout="@layout/adaptive_dynamic_island_seekbar_card_bottom" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
