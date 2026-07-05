@@ -37,6 +37,7 @@ import lineageos.preference.SettingsHelper;
 
 import org.lineageos.lineageparts.widget.CustomDialogPreference;
 import org.lineageos.lineageparts.widget.DialogCreatable;
+import org.lineageos.lineageparts.widget.SystemGridAdaptiveCards;
 import org.lineageos.lineageparts.widget.HighlightablePreferenceGroupAdapter;
 import org.lineageos.lineageparts.widget.LayoutPreference;
 
@@ -125,12 +126,29 @@ public abstract class SettingsPreferenceFragment extends ObservablePreferenceFra
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        applyAdaptiveCardsIfNeeded();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 
         final Bundle args = getArguments();
         if (args != null) {
             highlightPreferenceIfNeeded();
+        }
+
+        applyAdaptiveCardsIfNeeded();
+    }
+
+    private void applyAdaptiveCardsIfNeeded() {
+        if (SystemGridAdaptiveCards.applyIfDestination(this, getPreferenceScreen())) {
+            final RecyclerView listView = getListView();
+            if (listView != null && listView.getAdapter() != null) {
+                listView.getAdapter().notifyDataSetChanged();
+            }
         }
     }
 

@@ -17,6 +17,7 @@ import androidx.preference.PreferenceViewHolder;
 import lineageos.providers.LineageSettings;
 
 import org.lineageos.lineageparts.R;
+import org.lineageos.lineageparts.widget.AdaptivePreferenceCardHelper;
 
 public class DynamicIslandSeekBarPreference extends Preference
         implements SeekBar.OnSeekBarChangeListener {
@@ -34,7 +35,8 @@ public class DynamicIslandSeekBarPreference extends Preference
 
     public DynamicIslandSeekBarPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.preference_dynamic_island_seekbar);
+        setLayoutResource(R.layout.adaptive_dynamic_island_seekbar_card_top);
+        setSelectable(false);
     }
 
     public void configure(int min, int max, int defaultValue, ValueFormatter formatter) {
@@ -80,6 +82,8 @@ public class DynamicIslandSeekBarPreference extends Preference
         final int current = getSetting();
         mSeekBar.setProgress(valueToProgress(current));
         updateValue(current);
+        AdaptivePreferenceCardHelper.finalizeSeekBarRowTouchHandling(
+                holder.itemView, mSeekBar);
     }
 
     @Override

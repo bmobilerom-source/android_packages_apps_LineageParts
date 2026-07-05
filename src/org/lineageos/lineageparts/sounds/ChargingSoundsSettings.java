@@ -25,11 +25,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.lineageos.lineageparts.R;
 import org.lineageos.lineageparts.SettingsPreferenceFragment;
 import org.lineageos.lineageparts.search.BaseSearchIndexProvider;
 import org.lineageos.lineageparts.search.Searchable;
+import org.lineageos.lineageparts.widget.AdaptivePreferenceCardHelper;
+import org.lineageos.lineageparts.widget.SystemGridAdaptiveCards;
 
 import java.util.Set;
 
@@ -136,6 +139,17 @@ public class ChargingSoundsSettings
 
         updateChargingSounds(currentWiredChargingSound, false /* wireless */);
         updateChargingSounds(currentWirelessChargingSound, true /* wireless */);
+
+        SystemGridAdaptiveCards.applyIfDestination(this, getPreferenceScreen());
+        final androidx.preference.PreferenceCategory category =
+                findPreference("charging_sounds_category");
+        if (category != null) {
+            AdaptivePreferenceCardHelper.applyGroupedLayoutsToCategory(category);
+        }
+        final RecyclerView listView = getListView();
+        if (listView != null && listView.getAdapter() != null) {
+            listView.getAdapter().notifyDataSetChanged();
+        }
     }
 
     private Uri audioFileToUri(@NonNull Context context, String audioFile) {

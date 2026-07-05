@@ -15,13 +15,19 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceViewHolder;
+import androidx.preference.TwoStatePreference;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.lineageos.lineageparts.R;
@@ -61,17 +67,127 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        final Preference preference = getItem(position);
+        if (AdaptivePreferenceCardHelper.isSwitchRowPreference(preference)
+                && preference instanceof TwoStatePreference twoState
+                && AdaptivePreferenceCardHelper.hasAdaptiveCardContainer(holder.itemView)) {
+            bindSwitchCardRow(holder, twoState);
+        } else if (AdaptivePreferenceCardHelper.hasAdaptiveCardContainer(holder.itemView)) {
+            if (AdaptivePreferenceCardHelper.prefersDialogOnRowClick(preference)) {
+                bindDialogPreferenceCardRow(holder, preference);
+            } else if (AdaptivePreferenceCardHelper.shouldBindAdaptiveCardClickTarget(preference)) {
+                bindAdaptiveCardClickTarget(holder, preference);
+            } else {
+                normalizeAdaptiveCardTouches(holder, preference);
+            }
+        }
+        if (AdaptivePreferenceCardHelper.isSeekBarRowPreference(preference)) {
+            AdaptivePreferenceCardHelper.finalizeSeekBarRowTouchHandling(
+                    holder.itemView,
+                    AdaptivePreferenceCardHelper.findSeekBarInRow(holder.itemView));
+        }
         updateBackground(holder, position);
+    }
+
+    private static void normalizeAdaptiveCardTouches(
+            @NonNull PreferenceViewHolder holder, @Nullable Preference preference) {
+        final View itemView = holder.itemView;
+        AdaptivePreferenceCardHelper.releaseCardSurfaceTouchHandling(itemView);
+        if (preference == null) {
+            return;
+        }
+        if (AdaptivePreferenceCardHelper.prefersDirectWidgetInteraction(preference)) {
+            itemView.setClickable(false);
+            itemView.setLongClickable(false);
+        } else if (AdaptivePreferenceCardHelper.prefersDialogOnRowClick(preference)) {
+            final boolean selectable = preference.isSelectable() && preference.isEnabled();
+            itemView.setClickable(selectable);
+            itemView.setLongClickable(selectable);
+        }
+    }
+
+    private static void bindDialogPreferenceCardRow(
+            @NonNull PreferenceViewHolder holder, @NonNull Preference preference) {
+        final View itemView = holder.itemView;
+        AdaptivePreferenceCardHelper.releaseCardSurfaceTouchHandling(itemView);
+        final boolean active = preference.isSelectable() && preference.isEnabled();
+        itemView.setClickable(active);
+        itemView.setLongClickable(active);
+
+        final Runnable openDialog = () ->
+                AdaptivePreferenceCardHelper.activateCardRowClick(preference, itemView);
+        itemView.setOnClickListener(v -> openDialog.run());
+
+        final View cardSurface = findCardSurface(itemView);
+        if (cardSurface != null) {
+            cardSurface.setClickable(active);
+            cardSurface.setFocusable(false);
+            cardSurface.setOnTouchListener(null);
+            cardSurface.setOnClickListener(v -> openDialog.run());
+        }
+    }
+
+    private static void bindSwitchCardRow(
+            @NonNull PreferenceViewHolder holder, @NonNull TwoStatePreference preference) {
+        final View itemView = holder.itemView;
+        AdaptivePreferenceCardHelper.releaseCardSurfaceTouchHandling(itemView);
+
+        final boolean active = preference.isSelectable() && preference.isEnabled();
+        final Runnable toggle = () -> preference.setChecked(!preference.isChecked());
+
+        itemView.setClickable(active);
+        itemView.setLongClickable(false);
+        itemView.setOnClickListener(active ? v -> toggle.run() : null);
+
+        final View switchWidget = AdaptivePreferenceCardHelper.findSwitchInRow(itemView);
+        if (switchWidget != null) {
+            switchWidget.setClickable(true);
+            switchWidget.setEnabled(active);
+            switchWidget.setFocusable(true);
+            switchWidget.setFocusableInTouchMode(true);
+            switchWidget.setOnTouchListener((v, event) -> {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    for (ViewParent parent = v.getParent(); parent != null;
+                            parent = parent.getParent()) {
+                        parent.requestDisallowInterceptTouchEvent(true);
+                    }
+                }
+                return false;
+            });
+        }
+    }
+
+    private static void bindAdaptiveCardClickTarget(
+            @NonNull PreferenceViewHolder holder, @NonNull Preference preference) {
+        final View itemView = holder.itemView;
+        final View cardSurface = findCardSurface(itemView);
+        if (cardSurface == null) {
+            return;
+        }
+        cardSurface.setClickable(true);
+        cardSurface.setLongClickable(false);
+        cardSurface.setFocusable(false);
+        cardSurface.setOnTouchListener(null);
+        cardSurface.setOnClickListener(
+                v -> AdaptivePreferenceCardHelper.activateCardRowClick(preference, itemView));
+    }
+
+    @Nullable
+    private static View findCardSurface(@NonNull View itemView) {
+        View cardSurface = itemView.findViewById(R.id.container);
+        if (cardSurface == null && itemView instanceof ViewGroup group
+                && group.getChildCount() > 0) {
+            cardSurface = group.getChildAt(0);
+        }
+        return cardSurface;
     }
 
     @VisibleForTesting
     void updateBackground(PreferenceViewHolder holder, int position) {
         View v = holder.itemView;
         if (position == mHighlightPosition) {
-            // This position should be highlighted. If it's highlighted before - skip animation.
             addHighlightBackground(v, !mFadeInAnimated);
         } else if (Boolean.TRUE.equals(v.getTag(R.id.preference_highlighted))) {
-            // View with highlight is reused for a view that should not have highlight
             removeHighlightBackground(v, false /* animate */);
         }
     }
@@ -134,7 +250,6 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
         }
 
         if (!Boolean.TRUE.equals(v.getTag(R.id.preference_highlighted))) {
-            // Not highlighted, no-op
             Log.d(TAG, "RemoveHighlight: Not highlighted - skipping");
             return;
         }
@@ -148,8 +263,6 @@ public class HighlightablePreferenceGroupAdapter extends PreferenceGroupAdapter 
         colorAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                // Animation complete - the background is now white. Change to mNormalBackgroundRes
-                // so it is white and has ripple on touch.
                 v.setBackgroundResource(mNormalBackgroundRes);
             }
         });
