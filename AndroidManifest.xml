@@ -271,7 +271,7 @@
         <!-- Anonymous Statistics -->
         <receiver
             android:name=".lineagestats.ReportingServiceManager"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="false"
             android:label="ReportingServiceManager">
             <intent-filter>
@@ -282,12 +282,13 @@
 
         <service
             android:name=".lineagestats.ReportingService"
-            android:enabled="true"
+            android:enabled="false"
             android:exported="false"
             android:label="ReportingService" />
 
         <service
             android:name=".lineagestats.StatsUploadJobService"
+            android:enabled="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <activity

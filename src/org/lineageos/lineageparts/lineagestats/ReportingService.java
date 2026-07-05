@@ -25,6 +25,9 @@ public class ReportingService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        if (!Utilities.isStatsCollectionEnabled(this)) {
+            return;
+        }
         JobScheduler js = getSystemService(JobScheduler.class);
 
         Context context = getApplicationContext();
